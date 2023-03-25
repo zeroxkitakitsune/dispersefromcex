@@ -4,8 +4,17 @@ from ccxt.base.errors import InvalidAddress, InvalidOrder, ExchangeError
 from termcolor import cprint
 import json
 
-#Add proxy
-json_file_path = WALLETS_PATH
+KUCOIN_API_KEY = '<your mexc api key>'
+KUCOIN_SECRET = '<your mexc api key secret>'
+KUCOIN_PASSWORD = '<your kucoin password>'
+
+BINANCE_API_KEY = '<your binance api key>'
+BINANCE_API_SECRET = '<your binance api key secret>'
+
+MEXC_API_KEY = '<your mexc api key>'
+MEXC_API_SECRET = '<your mexc api key secret>'
+
+WALLETS_PATH = '<your wallets file path json(default wallets.json)>'
 
 account_kucoin = ccxt.kucoin({
     'apiKey': KUCOIN_API_KEY,
@@ -85,7 +94,7 @@ def withdraw_mexc(wallet, amount, code, network):
 
 def __main__():
 
-    with open(json_file_path, 'r') as j:
+    with open(WALLETS_PATH, 'r') as j:
         wallets = json.loads(j.read())
 
     print('Enter currency code:')
