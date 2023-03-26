@@ -1,11 +1,11 @@
 import ccxt
-from config import *
 from ccxt.base.errors import InvalidAddress, InvalidOrder, ExchangeError
 from termcolor import cprint
+import time
 import json
 
-KUCOIN_API_KEY = '<your mexc api key>'
-KUCOIN_SECRET = '<your mexc api key secret>'
+KUCOIN_API_KEY = '<your kucoin api key>'
+KUCOIN_SECRET = '<your kucoin api key secret>'
 KUCOIN_PASSWORD = '<your kucoin password>'
 
 BINANCE_API_KEY = '<your binance api key>'
@@ -14,7 +14,7 @@ BINANCE_API_SECRET = '<your binance api key secret>'
 MEXC_API_KEY = '<your mexc api key>'
 MEXC_API_SECRET = '<your mexc api key secret>'
 
-WALLETS_PATH = '<your wallets file path json(default wallets.json)>'
+WALLETS_PATH = 'wallets.json'
 
 account_kucoin = ccxt.kucoin({
     'apiKey': KUCOIN_API_KEY,
@@ -106,18 +106,24 @@ def __main__():
     print('Enter network:')
     network = input()
 
+    print('Set timeout (in seconds): ')
+    timeout = input()
+
     print('From what CEX you want to withdraw? (MEXC, Binance, KuCoin)')
     cex_choice = input()
 
     if(cex_choice.lower() == 'binance'):
         for wallet in wallets:
             withdraw_binance(wallet['address'], amount, code, network)
+            time.sleep(int(timeout))
     elif(cex_choice.lower() == 'mexc'):
         for wallet in wallets:
             withdraw_mexc(wallet['address'], amount, code, network)
+            time.sleep(int(timeout))
     elif(cex_choice.lower() == 'kucoin'):
         for wallet in wallets:
             withdraw_kucoin(wallet['address'], amount, code, network)
+            time.sleep(int(timeout))
     else:
         __main__()
 
